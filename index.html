@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Privacy | Unified Horizontal Sliding & Perspective Architecture</title>
+    <!-- Tailwind CSS for modern, responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .screen-view { display: none; }
+        .screen-view.active { display: block; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .animate-shake { animation: shake 0.4s ease-in-out; }
+        .dimmed-section { opacity: 0.35; pointer-events: none; filter: grayscale(40%); transition: all 0.3s ease; }
+        .active-section { opacity: 1; pointer-events: auto; filter: grayscale(0%); transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased overflow-x-hidden">
+
+    <!-- ========================================== -->
+    <!-- PHASE 1: THE GATEWAY CHOICE (WELCOME SCREEN) -->
+    <!-- ========================================== -->
+    <div id="screen-gateway" class="screen-view active min-h-screen flex items-center justify-center p-6 bg-slate-950">
+        <div class="max-w-4xl w-full text-center space-y-8">
+            <div class="space-y-3">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-3xl mb-2 shadow-lg">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white">DATA PRIVACY MASTER CONSOLE</h1>
+                <p class="text-sm md:text-base text-slate-400 max-w-xl mx-auto">Unified Horizontal Multi-Pane Sliding & Ambient Perspective Architecture.</p>
+            </div>
+
+            <!-- Three Entry Gates Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 text-left">
+                
+                <!-- Gate A: Personal -->
+                <div onclick="selectEntryGate('personal')" class="group bg-slate-900 hover:bg-slate-800/80 border border-slate-800 hover:border-emerald-500/50 rounded-2xl p-6 cursor-pointer transition-all duration-300 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-2">Personal Protection</h3>
+                        <ul class="text-xs text-slate-400 space-y-1.5 mb-6">
+                            <li>• Avoid online traps & dark patterns</li>
+                            <li>• Verify safe URLs instantly</li>
+                            <li>• High-engagement learning hub</li>
+                        </ul>
+                    </div>
+                    <span class="text-xs font-semibold text-emerald-400 flex items-center">Launch Personal Track <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i></span>
+                </div>
+
+                <!-- Gate B: Workplace -->
+                <div onclick="selectEntryGate('employee')" class="group bg-slate-900 hover:bg-slate-800/80 border border-slate-800 hover:border-sky-500/50 rounded-2xl p-6 cursor-pointer transition-all duration-300 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center text-lg mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-2">Workspace Compliance</h3>
+                        <ul class="text-xs text-slate-400 space-y-1.5 mb-6">
+                            <li>• Workplace data handling habits</li>
+                            <li>• Automated compliance validation</li>
+                            <li>• Zero-friction policy checklists</li>
+                        </ul>
+                    </div>
+                    <span class="text-xs font-semibold text-sky-400 flex items-center">Launch Workplace Track <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i></span>
+                </div>
+
+                <!-- Gate C: System Admin -->
+                <div onclick="selectEntryGate('admin')" class="group bg-slate-900 hover:bg-slate-800/80 border border-slate-800 hover:border-rose-500/50 rounded-2xl p-6 cursor-pointer transition-all duration-300 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center text-lg mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-2">System Administration</h3>
+                        <ul class="text-xs text-slate-400 space-y-1.5 mb-6">
+                            <li>• Forensic log analysis & JSON export</li>
+                            <li>• Active threat mitigation protocols</li>
+                            <li>• Enterprise tech stack deployment</li>
+                        </ul>
+                    </div>
+                    <span class="text-xs font-semibold text-rose-400 flex items-center">Launch Admin Track <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- MAIN DASHBOARD INTERFACE                    -->
+    <!-- ========================================== -->
+    <div id="screen-dashboard" class="screen-view">
+        
+        <!-- Top Header -->
+        <header class="bg-slate-950 text-white shadow-md border-b border-slate-800">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-shield-halved text-2xl text-emerald-400"></i>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-wide">Data Privacy</h1>
+                        <p id="active-mode-subtitle" class="text-xs text-emerald-400 font-medium">Architecture: Sliding Panes & Ambient Perspective</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button onclick="returnToGateway()" class="text-xs bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 px-3 py-1.5 rounded-lg transition">
+                        <i class="fa-solid fa-arrow-rotate-left mr-1"></i> Switch Entry Gate
+                    </button>
+
+                    <div class="flex items-center space-x-3 bg-slate-900 border border-slate-800 py-1.5 px-3 rounded-full">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-sky-500 flex items-center justify-center text-slate-950 font-bold text-xs shadow-inner">
+                            G6
+                        </div>
+                        <div class="text-left text-xs">
+                            <p class="font-semibold text-slate-200">Group 6</p>
+                            <p id="user-role-label" class="text-emerald-400 font-medium">Active Session</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <main class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-4 gap-6">
+            
+            <!-- Stabilized Persistent Core Sidebar -->
+            <aside id="app-sidebar" class="lg:col-span-1 bg-slate-950 rounded-2xl shadow-sm p-4 border border-slate-800 h-fit space-y-6">
+                
+                <!-- TOP HALF: End-User & Workplace Features -->
+                <div id="nav-group-user" class="active-section space-y-2">
+                    <h2 class="text-xs font-semibold uppercase tracking-wider text-emerald-400 px-3 flex items-center justify-between">
+                        <span><i class="fa-solid fa-user-shield mr-1.5"></i> My Workspace</span>
+                        <span id="badge-user" class="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded font-mono">ACTIVE</span>
+                    </h2>
+                    <nav class="space-y-1">
+                        <button onclick="switchTab('dashboard')" class="nav-btn w-full flex items-center space-x-3 px-4 py-2 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition" id="btn-dashboard">
+                            <i class="fa-solid fa-chart-pie w-5 text-center"></i><span>Privacy Dashboard</span>
+                        </button>
+                        <button onclick="switchTab('permissions')" class="nav-btn w-full flex items-center space-x-3 px-4 py-2 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition" id="btn-permissions">
+                            <i class="fa-solid fa-sliders w-5 text-center"></i><span>Data Permissions</span>
+                        </button>
+                        <button onclick="switchTab('darkpattern')" class="nav-btn w-full flex items-center space-x-3 px-4 py-2 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition" id="btn-darkpattern">
+                            <i class="fa-solid fa-graduation-cap w-5 text-center"></i><span>Training Hub</span>
+                        </button>
+                        <button onclick="switchTab('reminders')" class="nav-btn w-full flex items-center space-x-3 px-4 py-2 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition" id="btn-reminders">
+                            <i class="fa-solid fa-circle-question w-5 text-center"></i><span>Disclosures Ledger</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- BOTTOM HALF: Specialized Administrative Features -->
+                <div id="nav-group-admin" class="active-section pt-4 border-t border-slate-800 space-y-2">
+                    <h2 class="text-xs font-semibold uppercase tracking-wider text-rose-400 px-3 flex items-center justify-between">
+                        <span><i class="fa-solid fa-server mr-1.5"></i> IT Admin Console</span>
+                        <span id="badge-admin" class="text-[9px] bg-rose-500/20 text-rose-400 px-1.5 py-0.5 rounded font-mono">ACTIVE</span>
+                    </h2>
+                    <nav class="space-y-1">
+                        <button onclick="switchTab('security')" class="nav-btn w-full flex items-center space-x-3 px-4 py-2 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition" id="btn-security">
+                            <i class="fa-solid fa-triangle-exclamation w-5 text-center"></i><span>Security Alerts</span>
+                        </button>
+                        <button onclick="switchTab('tools')" class="nav-btn w-full flex items-center space-x-3 px-4 py-2 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition" id="btn-tools">
+                            <i class="fa-solid fa-toolbox w-5 text-center"></i><span>Vetted Tools Stack</span>
+                        </button>
+                        <button onclick="switchTab('protection')" class="nav-btn w-full flex items-center space-x-3 px-4 py-2 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition" id="btn-protection">
+                            <i class="fa-solid fa-lock w-5 text-center"></i><span>Endpoint Hardening</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- SHARED ENDPOINT UTILITIES -->
+                <div class="pt-4 border-t border-slate-800 space-y-2">
+                    <h2 class="text-xs font-semibold uppercase tracking-wider text-sky-400 px-3 flex items-center">
+                        <i class="fa-solid fa-shield-cat mr-1.5"></i> Shared Utilities
+                    </h2>
+                    <nav class="space-y-1">
+                        <button onclick="switchTab('phishing')" class="nav-btn w-full flex items-center space-x-3 px-4 py-2 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition" id="btn-phishing">
+                            <i class="fa-solid fa-magnifying-glass-chart w-5 text-center"></i><span>Phishing Inspector</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Perspective Filter & Side-Car Trigger -->
+                <div class="pt-4 border-t border-slate-800 px-1 space-y-3">
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-300 space-y-2">
+                        <p class="font-bold text-[10px] uppercase tracking-wider text-slate-400 flex items-center">
+                            <i class="fa-solid fa-filter mr-1.5 text-emerald-400"></i> Perspective Overlay Filter
+                        </p>
+                        <select id="perspectiveFilterSelect" onchange="applyPerspectiveFilter(this.value)" class="w-full bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-lg p-2 focus:outline-none focus:border-emerald-500 font-medium">
+                            <option value="all">🌐 Show All (Full Access)</option>
+                            <option value="personal">👤 Focus: Personal Track (Dim Admin)</option>
+                            <option value="admin">⚡ Focus: Admin Track (Dim User)</option>
+                        </select>
+                    </div>
+
+                    <button onclick="toggleSidecarInspector()" class="w-full bg-sky-500/20 hover:bg-sky-500/30 text-sky-400 border border-sky-500/40 text-xs py-2 px-3 rounded-xl font-semibold transition flex items-center justify-center">
+                        <i class="fa-solid fa-magnifying-glass-chart mr-1.5"></i> Open Side-Car Inspector
+                    </button>
+                </div>
+
+                <!-- Privacy Posture Widget -->
+                <div class="pt-2 px-1">
+                    <div id="posture-widget" class="bg-slate-900 border border-emerald-900/50 rounded-xl p-3.5 text-xs text-emerald-400 transition-all duration-300">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold flex items-center text-slate-200"><i class="fa-solid fa-shield-heart mr-1.5 text-emerald-400"></i> Privacy Score</span>
+                            <span id="score-badge" class="bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-md font-bold">85%</span>
+                        </div>
+                        <p id="posture-desc" class="text-slate-400 mb-2.5">1 minor permission optimization available.</p>
+                        <button onclick="optimizePrivacy()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-1.5 px-3 rounded-lg transition text-center shadow-sm">
+                            Optimize My Privacy
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Standardized Uniform Grid Content Area -->
+            <section class="lg:col-span-3 space-y-6">
+
+                <!-- IDEA 1: Privacy Dashboard -->
+                <div id="dashboard" class="tab-content active bg-slate-950 rounded-2xl shadow-sm p-8 border border-slate-800 min-h-[580px] flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-6 pb-2">
+                            <div>
+                                <span class="text-xs font-semibold text-emerald-400 tracking-wider uppercase mb-1 block"><span class="font-mono">[👤]</span> My Workspace Overview</span>
+                                <h2 class="text-2xl font-bold text-white mb-1">Privacy Dashboard</h2>
+                                <p class="text-sm text-slate-400">Overview of what information is collected, stored, and how it is utilized.</p>
+                            </div>
+                            <span class="bg-emerald-950/60 text-emerald-400 border border-emerald-800/60 text-xs px-3 py-1.5 rounded-full font-medium flex items-center"><i class="fa-solid fa-shield mr-1.5"></i> Protected</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+                                <h3 class="text-sm font-semibold text-slate-300 mb-3 flex items-center"><i class="fa-solid fa-database mr-2 text-emerald-400"></i> Stored Profile Data</h3>
+                                <ul class="text-sm space-y-2 text-slate-400">
+                                    <li><strong class="text-slate-200">Name:</strong> Group 6</li>
+                                    <li><strong class="text-slate-200">Email:</strong> Group6@gmail.com</li>
+                                    <li><strong class="text-slate-200">Location:</strong> Metro Manila, PH</li>
+                                    <li><strong class="text-slate-200">Recent Activity:</strong> Logged 30 mins ago</li>
+                                </ul>
+                            </div>
+                            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+                                <h3 class="text-sm font-semibold text-slate-300 mb-3 flex items-center"><i class="fa-solid fa-circle-info mr-2 text-emerald-400"></i> Data Usage Purpose</h3>
+                                <p class="text-sm text-slate-400 leading-relaxed">Your information is used strictly to provide personalized service recommendations, secure your account authentication, and optimize local content loading times.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-between pt-6 border-t border-slate-800 gap-4 mt-auto">
+                        <span class="text-xs text-slate-500">Server Status: Encrypted & Stored Locally on Secure Cloud</span>
+                        <button onclick="alert('Data deletion request submitted successfully.')" class="w-full sm:w-auto bg-rose-950/40 text-rose-400 hover:bg-rose-900/50 text-sm font-medium px-5 py-2.5 rounded-xl transition border border-rose-800/40 flex items-center justify-center">
+                            <i class="fa-solid fa-trash-can mr-2"></i> Delete My Stored Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- IDEA 2: Data Permission Control -->
+                <div id="permissions" class="tab-content bg-slate-950 rounded-2xl shadow-sm p-8 border border-slate-800 min-h-[580px] flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-6 pb-2">
+                            <div>
+                                <span class="text-xs font-semibold text-emerald-400 tracking-wider uppercase mb-1 block"><span class="font-mono">[👤]</span> My Workspace Controls</span>
+                                <h2 class="text-2xl font-bold text-white mb-1">Data Permission Control</h2>
+                                <p class="text-sm text-slate-400">Customize permissions. Click info to slide open compliance details right.</p>
+                            </div>
+                            <span class="bg-slate-900 text-slate-300 border border-slate-700 text-xs px-3 py-1.5 rounded-full font-medium"><i class="fa-solid fa-sliders mr-1.5"></i> Live Config</span>
+                        </div>
+
+                        <div id="permission-split-container" class="flex gap-4 transition-all duration-300">
+                            <div id="permission-left-pane" class="w-full transition-all duration-300 space-y-4">
+                                <div id="row-camera" class="flex items-center justify-between p-4 bg-slate-900 rounded-xl border border-slate-800 transition">
+                                    <div class="flex items-center space-x-3.5">
+                                        <i id="icon-camera" class="fa-solid fa-camera text-emerald-400 text-lg w-6 text-center"></i>
+                                        <div>
+                                            <div class="flex items-center space-x-2">
+                                                <p id="title-camera" class="text-sm font-semibold text-slate-200">Camera Access</p>
+                                                <button onclick="togglePermissionPane('camera')" class="text-sky-400 hover:text-emerald-400 text-xs font-semibold flex items-center"><i class="fa-solid fa-circle-info mr-1"></i> See Compliance →</button>
+                                            </div>
+                                            <p id="desc-camera" class="text-xs text-slate-400">Used for scanning profile pictures or documents.</p>
+                                        </div>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="chk-camera" checked class="sr-only peer" onchange="togglePermission('camera', this.checked)">
+                                        <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                                    </label>
+                                </div>
+
+                                <div id="row-mic" class="flex items-center justify-between p-4 bg-slate-900 rounded-xl border border-slate-800 transition opacity-50">
+                                    <div class="flex items-center space-x-3.5">
+                                        <i id="icon-mic" class="fa-solid fa-microphone text-slate-500 text-lg w-6 text-center"></i>
+                                        <div>
+                                            <div class="flex items-center space-x-2">
+                                                <p id="title-mic" class="text-sm font-semibold text-slate-400">Microphone Access</p>
+                                                <button onclick="togglePermissionPane('mic')" class="text-sky-400 hover:text-emerald-400 text-xs font-semibold flex items-center"><i class="fa-solid fa-circle-info mr-1"></i> See Compliance →</button>
+                                            </div>
+                                            <p id="desc-mic" class="text-xs text-slate-500">Used for voice search features.</p>
+                                        </div>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="chk-mic" class="sr-only peer" onchange="togglePermission('mic', this.checked)">
+                                        <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                                    </label>
+                                </div>
+
+                                <div id="row-loc" class="flex items-center justify-between p-4 bg-slate-900 rounded-xl border border-slate-800 transition">
+                                    <div class="flex items-center space-x-3.5">
+                                        <i id="icon-loc" class="fa-solid fa-location-dot text-emerald-400 text-lg w-6 text-center"></i>
+                                        <div>
+                                            <div class="flex items-center space-x-2">
+                                                <p id="title-loc" class="text-sm font-semibold text-slate-200">Location Data</p>
+                                                <button onclick="togglePermissionPane('location')" class="text-sky-400 hover:text-emerald-400 text-xs font-semibold flex items-center"><i class="fa-solid fa-circle-info mr-1"></i> See Compliance →</button>
+                                            </div>
+                                            <p id="desc-loc" class="text-xs text-slate-400">Used to provide regional service accuracy.</p>
+                                        </div>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="chk-loc" checked class="sr-only peer" onchange="togglePermission('loc', this.checked)">
+                                        <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div id="permission-right-pane" class="w-0 overflow-hidden opacity-0 transition-all duration-300 bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-col justify-between shrink-0">
+                                <div>
+                                    <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-2">
+                                        <h4 id="pane-title" class="text-sm font-bold text-white flex items-center"><i class="fa-solid fa-shield-halved mr-2 text-sky-400"></i> Compliance Ledger</h4>
+                                        <button onclick="closePermissionPane()" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-xmark"></i></button>
+                                    </div>
+                                    <div class="space-y-3 text-xs text-slate-300">
+                                        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                                            <p class="font-bold text-emerald-400 mb-1"><span class="font-mono">[👤]</span> User Privacy Benefit:</p>
+                                            <p id="pane-user-desc" class="text-slate-400">Stream memory stays local.</p>
+                                        </div>
+                                        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                                            <p class="font-bold text-sky-400 mb-1"><span class="font-mono">[💼]</span> IT & ISO 27001 Audit Standard:</p>
+                                            <p id="pane-admin-desc" class="text-slate-400">Archived securely for 90 days.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button onclick="closePermissionPane()" class="mt-4 w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs py-2 rounded-lg transition">
+                                    ← Back to Toggles
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-slate-500">
+                        <p class="flex items-center text-amber-400"><span class="font-mono mr-1.5">[💼]</span> Workplace Policy Note: Disabling permissions may restrict corporate video conferencing tools.</p>
+                    </div>
+                </div>
+
+                <!-- IDEA 3: 24/7 Security Alert -->
+                <div id="security" class="tab-content bg-slate-950 rounded-2xl shadow-sm p-8 border border-slate-800 min-h-[580px]">
+                    <div class="flex justify-between items-start mb-6 pb-2">
+                        <div>
+                            <span class="text-xs font-semibold text-rose-400 tracking-wider uppercase mb-1 block">Horizontal Multi-Pane Threat Center</span>
+                            <h2 class="text-2xl font-bold text-white mb-1">24/7 Security Alerts</h2>
+                            <p class="text-sm text-slate-400">Click "See Forensic Diagnostics" to slide open the IT server payload right.</p>
+                        </div>
+                        <span class="bg-amber-950/60 text-amber-400 border border-amber-800/60 text-xs px-3 py-1.5 rounded-full font-medium flex items-center"><i class="fa-solid fa-bell mr-1.5"></i> Active Incident</span>
+                    </div>
+
+                    <div id="security-split-container" class="flex gap-4 transition-all duration-300">
+                        <div id="security-left-pane" class="w-full transition-all duration-300 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-inner flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-start space-x-4 mb-4">
+                                    <i class="fa-solid fa-shield-halved text-emerald-400 text-2xl mt-1"></i>
+                                    <div>
+                                        <div class="flex items-center space-x-2 mb-1">
+                                            <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-mono font-bold px-2 py-0.5 rounded">[👤 User Shield]</span>
+                                            <h4 class="text-base font-bold text-slate-100">Suspicious Login Attempt Stopped</h4>
+                                        </div>
+                                        <p class="text-sm text-slate-300 leading-relaxed">Your account remains safe. A login attempt from Frankfurt, Germany was intercepted. No action required from your side.</p>
+                                    </div>
+                                </div>
+                                <div class="px-3 py-2 bg-slate-950 rounded-lg border border-slate-800 text-xs text-slate-300 mb-6">
+                                    <span class="font-mono text-sky-400">[💼]</span> Compliance Status: Active. Satisfies automated corporate endpoint defense rules.
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-slate-800">
+                                <button onclick="alert('Device authorization confirmed!')" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs py-2.5 px-4 rounded-xl transition shadow-sm">
+                                    It Was Me (Authorize Device)
+                                </button>
+                                <button onclick="toggleSecurityDiagnosticsPane()" id="slide-diag-btn" class="text-xs text-sky-400 hover:text-emerald-400 font-semibold flex items-center transition">
+                                    <i class="fa-solid fa-terminal mr-1.5"></i> See Forensic Diagnostics →
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="security-right-pane" class="w-0 overflow-hidden opacity-0 transition-all duration-300 bg-slate-950 border border-slate-800 rounded-2xl p-5 flex flex-col justify-between shrink-0 font-mono text-xs text-slate-300">
+                            <div>
+                                <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-2 text-rose-400 font-bold">
+                                    <span><i class="fa-solid fa-server mr-1"></i> [⚡] IT Admin Forensic Payload</span>
+                                    <button onclick="toggleSecurityDiagnosticsPane()" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-xmark"></i></button>
+                                </div>
+                                <div class="space-y-2 text-[11px] text-slate-400 bg-slate-900 p-3 rounded-lg border border-slate-800 mb-4">
+                                    <p><span class="text-slate-500">TIMESTAMP:</span> 2026-10-11T19:05:00Z</p>
+                                    <p><span class="text-slate-500">SRC_IP:</span> 185.220.101.5 (Tor Exit Node)</p>
+                                    <p><span class="text-slate-500">GEO_ROUTING:</span> Frankfurt, DE</p>
+                                    <p><span class="text-slate-500">RULE_TRIGGER:</span> Auto-Block Rule 4-A</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <button onclick="alert('Exported forensic threat log payload to JSON.')" class="w-full bg-slate-900 hover:bg-slate-800 text-sky-400 border border-sky-500/30 font-semibold text-[11px] py-2 px-3 rounded-lg transition text-center">
+                                    <i class="fa-solid fa-file-code mr-1"></i> Export JSON Log
+                                </button>
+                                <button onclick="toggleSecurityDiagnosticsPane()" class="w-full mt-2 bg-slate-900 text-slate-400 hover:text-white text-[11px] py-1.5 rounded-lg transition border border-slate-800">
+                                    ← Back to Overview
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IDEA 4: Vetted Tools Stack -->
+                <div id="tools" class="tab-content bg-slate-950 rounded-2xl shadow-sm p-8 border border-slate-800 min-h-[580px]">
+                    <div class="mb-6 pb-2 flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-semibold text-rose-400 tracking-wider uppercase mb-1 block"><span class="font-mono">[⚡]</span> IT Admin & Individual Software Reference</span>
+                            <h2 class="text-2xl font-bold text-white mb-1">Vetted Privacy Tools Stack</h2>
+                            <p class="text-sm text-slate-400">Click any software card to slide open its deep personal and enterprise deployment specs.</p>
+                        </div>
+                        <span class="bg-slate-900 text-slate-300 border border-slate-700 text-xs px-3 py-1.5 rounded-full font-medium"><i class="fa-solid fa-toolbox mr-1.5"></i> Interactive Grid</span>
+                    </div>
+                    
+                    <div id="tools-split-container" class="flex gap-4 transition-all duration-300">
+                        <div id="tools-left-pane" class="w-full transition-all duration-300 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div onclick="toggleToolDetail('browser')" class="group bg-slate-900 hover:bg-slate-800/80 border border-slate-800 hover:border-emerald-500/50 rounded-xl p-5 cursor-pointer transition-all duration-300 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start border-b border-slate-800 pb-3 mb-3">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg">
+                                                <i class="fa-solid fa-globe"></i>
+                                            </div>
+                                            <div>
+                                                <span class="text-[10px] text-slate-500 uppercase tracking-wider font-mono">Web Browser</span>
+                                                <h3 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">Brave / Firefox</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-slate-400 mb-4">Blocks tracking scripts, fingerprinting, and intrusive cross-site ad bubbles by default.</p>
+                                </div>
+                                <span class="text-xs font-semibold text-emerald-400 flex items-center">View Specs & Deployment →</span>
+                            </div>
+
+                            <div onclick="toggleToolDetail('signal')" class="group bg-slate-900 hover:bg-slate-800/80 border border-slate-800 hover:border-sky-500/50 rounded-xl p-5 cursor-pointer transition-all duration-300 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start border-b border-slate-800 pb-3 mb-3">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center text-lg">
+                                                <i class="fa-solid fa-comment-secure"></i>
+                                            </div>
+                                            <div>
+                                                <span class="text-[10px] text-slate-500 uppercase tracking-wider font-mono">Secure Messaging</span>
+                                                <h3 class="text-base font-bold text-white group-hover:text-sky-400 transition-colors">Signal</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-slate-400 mb-4">Gold standard for encrypted communications with absolute zero metadata collection.</p>
+                                </div>
+                                <span class="text-xs font-semibold text-sky-400 flex items-center">View Specs & Deployment →</span>
+                            </div>
+                        </div>
+
+                        <div id="tools-right-pane" class="w-0 overflow-hidden opacity-0 transition-all duration-300 bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between shrink-0 text-xs text-slate-300">
+                            <div>
+                                <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3">
+                                    <h4 id="tool-pane-title" class="text-sm font-bold text-white flex items-center">
+                                        <i class="fa-solid fa-circle-info mr-2 text-emerald-400"></i> Software Technical Specification
+                                    </h4>
+                                    <button onclick="closeToolDetail()" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-xmark text-base"></i></button>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                                        <p class="font-bold text-emerald-400 mb-1.5"><span class="font-mono mr-1.5">[👤]</span> Personal User Benefit:</p>
+                                        <p id="tool-user-desc" class="text-slate-400 leading-relaxed"></p>
+                                    </div>
+                                    <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                                        <p class="font-bold text-sky-400 mb-1.5"><span class="font-mono mr-1.5">[💼]</span> Enterprise Compliance:</p>
+                                        <p id="tool-compliance-desc" class="text-slate-400 leading-relaxed"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="closeToolDetail()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-2 rounded-xl transition">
+                                ← Back to Tool Stack
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IDEA 5: Endpoint Hardening -->
+                <div id="protection" class="tab-content bg-slate-950 rounded-2xl shadow-sm p-8 border border-slate-800 min-h-[580px]">
+                    <div class="flex justify-between items-start mb-6 pb-2">
+                        <div>
+                            <span class="text-xs font-semibold text-sky-400 tracking-wider uppercase mb-1 block">Endpoint Security Utility</span>
+                            <h2 class="text-2xl font-bold text-white mb-1">Secure Data Protection</h2>
+                            <p class="text-sm text-slate-400">Additional safeguards to keep unauthorized third parties away from your data.</p>
+                        </div>
+                        <span class="bg-sky-950/60 text-sky-400 border border-sky-800/60 text-xs px-3 py-1.5 rounded-full font-medium flex items-center"><i class="fa-solid fa-shield-halved mr-1.5"></i> Hardened</span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-200 mb-0.5">Location Confirmation on New Device Login</p>
+                                <p class="text-xs text-slate-400">Requires secondary code check if logging in from an unverified location.</p>
+                            </div>
+                            <span class="text-xs bg-emerald-950 text-emerald-400 border border-emerald-800/80 px-3 py-1 rounded-full font-medium">Active</span>
+                        </div>
+
+                        <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-200 mb-0.5">Global Session Termination ("Sign Out Everywhere")</p>
+                                <p class="text-xs text-slate-400">Instantly closes all active sessions across all devices.</p>
+                            </div>
+                            <button onclick="alert('Signed out from all active devices successfully.')" class="bg-slate-800 hover:bg-slate-700 text-white text-xs px-4 py-2.5 rounded-xl font-medium transition border border-slate-700">Sign Out All</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IDEA 6: Training Hub -->
+                <div id="darkpattern" class="tab-content bg-slate-950 rounded-2xl shadow-sm p-8 border border-slate-800 min-h-[580px]">
+                    <div class="mb-6 pb-2 flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-semibold text-emerald-400 tracking-wider uppercase mb-1 block"><span class="font-mono">[👤]</span> My Workspace Training Hub</span>
+                            <h2 class="text-2xl font-bold text-white mb-1">Privacy Literacy Challenge</h2>
+                            <p class="text-sm text-slate-400">Learn how to spot deceptive layouts and avoid corporate data traps.</p>
+                        </div>
+                        <div id="streak-badge" class="bg-slate-900 border border-slate-700 text-emerald-400 text-xs px-3 py-1.5 rounded-full font-bold">
+                            🏆 Daily Challenge Completed: <span id="streak-count">0/1</span>
+                        </div>
+                    </div>
+
+                    <div id="game-split-container" class="flex gap-4 transition-all duration-300 max-w-4xl mx-auto">
+                        <div id="game-left-pane" class="w-full transition-all duration-300 bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-inner text-center">
+                            <p class="text-sm text-slate-300 mb-6 font-medium leading-relaxed">
+                                "We value your privacy! Click below to accept all personalized ad cookies or manage your options."
+                            </p>
+                            <button onclick="triggerDarkPatternTrap()" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold py-3 px-4 rounded-xl mb-4 transition shadow-md">
+                                Accept All Cookies (Recommended)
+                            </button>
+                            <div>
+                                <button onclick="triggerDarkPatternSuccess()" class="w-full bg-slate-800 hover:bg-slate-700 text-sky-400 border border-sky-500/30 font-medium text-xs py-3 px-4 rounded-xl transition">
+                                    Reject Optional Cookies & Decline Profiling
+                                </button>
+                            </div>
+                            <div id="game-feedback" class="mt-4 text-xs font-semibold hidden"></div>
+                        </div>
+
+                        <div id="game-right-pane" class="w-0 overflow-hidden opacity-0 transition-all duration-300 bg-slate-950 border border-slate-800 rounded-2xl p-5 flex flex-col justify-between shrink-0 text-xs text-slate-300">
+                            <div>
+                                <div class="flex justify-between items-center mb-3 border-b border-slate-800 pb-2 text-emerald-400 font-bold">
+                                    <span><i class="fa-solid fa-graduation-cap mr-1"></i> Dark Pattern Analysis</span>
+                                    <button onclick="closeGamePane()" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-xmark"></i></button>
+                                </div>
+                                <div class="space-y-3 text-slate-400">
+                                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                        <p class="font-bold text-emerald-400 mb-1"><span class="font-mono">[👤]</span> Personal Safety Tip:</p>
+                                        <p>Deceptive interfaces use bright green buttons to trick users into consenting to tracking.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="closeGamePane()" class="w-full bg-slate-900 text-slate-400 hover:text-white py-2 rounded-lg transition border border-slate-800">
+                                ← Back to Quiz
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IDEA 7: Disclosures Ledger -->
+                <div id="reminders" class="tab-content bg-slate-950 rounded-2xl shadow-sm p-8 border border-slate-800 min-h-[580px]">
+                    <div class="mb-6 pb-2 flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-semibold text-indigo-400 tracking-wider uppercase mb-1 block"><span class="font-mono">[👤💼]</span> Transparent Ledger & Compliance</span>
+                            <h2 class="text-2xl font-bold text-white mb-1">Disclosures & Data Governance</h2>
+                            <p class="text-sm text-slate-400">Granular breakdown addressing personal privacy and corporate audit compliance.</p>
+                        </div>
+                        <span class="bg-indigo-950/60 text-indigo-400 border border-indigo-800/60 text-xs px-3 py-1.5 rounded-full font-medium flex items-center"><i class="fa-solid fa-file-shield mr-1.5"></i> Audited</span>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="space-y-3">
+                            <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center">
+                                <span class="font-mono mr-1.5">[👤]</span> How this affects your personal privacy
+                            </h3>
+                            <div class="p-4 bg-slate-900 border-l-4 border-emerald-500 rounded-r-xl border-y border-r border-slate-800">
+                                <h4 class="text-sm font-semibold text-slate-200 mb-1">Email & Profile Data Storage</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">Your email (Group6@gmail.com) is solely used for password recovery notices and security alerts. We never sell or share profile identifiers with advertisers.</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 pt-2">
+                            <h3 class="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center">
+                                <span class="font-mono mr-1.5">[💼]</span> How this meets company compliance & IT audits
+                            </h3>
+                            <div class="p-4 bg-slate-900 border-l-4 border-sky-500 rounded-r-xl border-y border-r border-slate-800">
+                                <h4 class="text-sm font-semibold text-slate-200 mb-1">Regulatory Standards & Data Erasure</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">Meets ISO-27001, GDPR, and HIPAA zero-trust guidelines. Fully supports automated data deletion guarantees and encrypted node routing for remote employee workstations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IDEA 8: Fully Functioning Phishing URL Inspector -->
+                <div id="phishing" class="tab-content bg-slate-950 rounded-2xl shadow-sm p-8 border border-slate-800 min-h-[580px]">
+                    <div class="mb-6 pb-2 flex justify-between items-start">
+                        <div>
+                            <div class="flex items-center space-x-2 mb-1">
+                                <span class="text-xs bg-sky-950 text-sky-400 border border-sky-800 px-2.5 py-0.5 rounded-full font-bold">Free Shared Endpoint Utility</span>
+                            </div>
+                            <h2 class="text-2xl font-bold text-white mb-1">Phishing URL Inspector</h2>
+                            <p class="text-sm text-slate-400">Test any link to evaluate domain reputation, typosquatting vectors, and SSL security.</p>
+                        </div>
+                        <span class="bg-slate-900 text-emerald-400 border border-emerald-500/30 text-xs px-3 py-1.5 rounded-full font-medium"><i class="fa-solid fa-shield-cat mr-1.5"></i> Scanner</span>
+                    </div>
+
+                    <div class="space-y-4 max-w-xl">
+                        <div class="flex gap-2">
+                            <input type="text" id="urlInput" value="https://www.google.com/search?q=google" placeholder="Enter URL to test..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-emerald-500 font-mono">
+                            <button onclick="inspectUrl()" class="bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold px-5 py-3 rounded-xl transition shadow-md shrink-0">
+                                Analyze
+                            </button>
+                        </div>
+
+                        <!-- Quick Test Presets -->
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="text-slate-500 self-center">Try test link:</span>
+                            <button onclick="setTestUrl('https://www.google.com/search?q=dataprivacy')" class="bg-slate-900 hover:bg-slate-800 text-emerald-400 border border-slate-800 px-2.5 py-1 rounded-lg font-mono">Good (Google Search)</button>
+                            <button onclick="setTestUrl('https://faceb00k-login-secure.net')" class="bg-slate-900 hover:bg-slate-800 text-rose-400 border border-slate-800 px-2.5 py-1 rounded-lg font-mono">Bad (Typosquatting)</button>
+                            <button onclick="setTestUrl('http://update-microsoft-support.tk/login')" class="bg-slate-900 hover:bg-slate-800 text-amber-400 border border-slate-800 px-2.5 py-1 rounded-lg font-mono">Suspicious (HTTP/TLD)</button>
+                        </div>
+
+                        <!-- Results Card (Dynamically Updated) -->
+                        <div id="urlResult" class="hidden p-5 rounded-2xl border space-y-3 transition-all duration-300">
+                            <div class="flex items-center space-x-3">
+                                <div id="result-icon-container" class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0">
+                                    <i id="result-icon" class="fa-solid"></i>
+                                </div>
+                                <div>
+                                    <span id="riskBadge" class="text-xs font-bold px-2.5 py-0.5 rounded-md uppercase font-mono"></span>
+                                    <h4 id="result-headline" class="text-sm font-bold text-white mt-0.5"></h4>
+                                </div>
+                            </div>
+
+                            <p id="riskDesc" class="text-xs text-slate-300 leading-relaxed bg-slate-950/60 p-3 rounded-xl border border-slate-800"></p>
+
+                            <div class="grid grid-cols-2 gap-2 text-[11px] font-mono pt-1 text-slate-400">
+                                <div class="bg-slate-950/40 p-2 rounded-lg border border-slate-800">
+                                    <p class="text-slate-500">PROTOCOL CHECK:</p>
+                                    <p id="metric-protocol" class="font-bold text-slate-200">-</p>
+                                </div>
+                                <div class="bg-slate-950/40 p-2 rounded-lg border border-slate-800">
+                                    <p class="text-slate-500">HOMOGRAPH/SPOOF:</p>
+                                    <p id="metric-spoof" class="font-bold text-slate-200">-</p>
+                                </div>
+                            </div>
+
+                            <div id="admin-telemetry-notice-url" class="pt-2 text-[10px] text-slate-400 font-mono border-t border-slate-800">
+                                <span class="font-mono text-amber-400 mr-1">[⚡ IT Admin Telemetry]:</span> Scan completed and logged to company threat database.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <!-- Optimization Modal Dialog -->
+    <div id="optimization-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-emerald-500/50 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mx-auto">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white">Privacy Optimization Sweep</h3>
+            <p id="modal-status-text" class="text-xs text-slate-300">Scanning local permissions and active network hooks...</p>
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-left text-xs space-y-1.5 text-slate-400 font-mono">
+                <p id="check-1">⏳ Revoking background camera telemetry...</p>
+                <p id="check-2">⏳ Obfuscating regional location coordinates...</p>
+                <p id="check-3">⏳ Flushing temporary session tracking tokens...</p>
+            </div>
+            <button id="modal-close-btn" onclick="closeOptimizationModal()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2.5 rounded-xl transition text-xs shadow-sm hidden">
+                Awesome, Lock It In!
+            </button>
+        </div>
+    </div>
+
+    <!-- Independent Side-Car Phishing Inspector Panel -->
+    <div id="sidecar-inspector" class="fixed inset-y-0 right-0 z-50 w-96 bg-slate-950 border-l border-slate-800 p-6 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
+        <div>
+            <div class="flex justify-between items-center mb-6 pb-2 border-b border-slate-800">
+                <h3 class="text-sm font-bold text-white flex items-center"><i class="fa-solid fa-magnifying-glass-chart mr-2 text-sky-400"></i> Side-Car URL Inspector</h3>
+                <button onclick="toggleSidecarInspector()" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-xs text-slate-400 mb-4">Run quick link checks without losing your active session state.</p>
+            <div class="space-y-3">
+                <input type="text" id="sidecarUrlInput" placeholder="Paste link to test..." class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 font-mono">
+                <button onclick="sidecarInspectUrl()" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold py-2 rounded-lg text-xs transition">Verify Safety</button>
+                <div id="sidecarResult" class="hidden bg-slate-900 p-3 rounded-lg border border-slate-800 text-xs font-mono"></div>
+            </div>
+        </div>
+        <button onclick="toggleSidecarInspector()" class="w-full bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs py-2 rounded-lg transition border border-slate-700">
+            Close Side-Car
+        </button>
+    </div>
+    <div id="sidecar-overlay" onclick="toggleSidecarInspector()" class="fixed inset-y-0 left-0 z-40 w-full bg-slate-950/40 backdrop-blur-xs hidden"></div>
+
+    <!-- Unified Script Controllers -->
+    <script>
+        let appState = {
+            camera: true,
+            mic: false,
+            location: true,
+            hasSecurityAlert: true,
+            streakCompleted: 0,
+            currentRole: 'personal'
+        };
+
+        function selectEntryGate(role) {
+            appState.currentRole = role;
+            document.getElementById('screen-gateway').classList.remove('active');
+            document.getElementById('screen-dashboard').classList.add('active');
+
+            const filterVal = role === 'admin' ? 'admin' : (role === 'personal' ? 'personal' : 'all');
+            document.getElementById('perspectiveFilterSelect').value = filterVal;
+            applyPerspectiveFilter(filterVal);
+
+            if (role === 'personal') switchTab('darkpattern');
+            else if (role === 'employee') switchTab('permissions');
+            else if (role === 'admin') switchTab('security');
+        }
+
+        function returnToGateway() {
+            document.getElementById('screen-dashboard').classList.remove('active');
+            document.getElementById('screen-gateway').classList.add('active');
+        }
+
+        function applyPerspectiveFilter(filterMode) {
+            const userGroup = document.getElementById('nav-group-user');
+            const adminGroup = document.getElementById('nav-group-admin');
+            const badgeUser = document.getElementById('badge-user');
+            const badgeAdmin = document.getElementById('badge-admin');
+            const modeSubtitle = document.getElementById('active-mode-subtitle');
+
+            if (filterMode === 'personal') {
+                userGroup.className = "active-section space-y-2";
+                adminGroup.className = "dimmed-section pt-4 border-t border-slate-800 space-y-2";
+                badgeUser.innerText = "ACTIVE TRACK";
+                badgeAdmin.innerText = "LOCKED / DIMMED";
+                modeSubtitle.innerText = "Perspective: Personal Focus Active";
+            } else if (filterMode === 'admin') {
+                userGroup.className = "dimmed-section space-y-2";
+                adminGroup.className = "active-section pt-4 border-t border-slate-800 space-y-2";
+                badgeUser.innerText = "LOCKED / DIMMED";
+                badgeAdmin.innerText = "ACTIVE TRACK";
+                modeSubtitle.innerText = "Perspective: IT Admin Focus Active";
+            } else {
+                userGroup.className = "active-section space-y-2";
+                adminGroup.className = "active-section pt-4 border-t border-slate-800 space-y-2";
+                badgeUser.innerText = "ACTIVE";
+                badgeAdmin.innerText = "ACTIVE";
+                modeSubtitle.innerText = "Architecture: Sliding Panes & Ambient Perspective";
+            }
+        }
+
+        function optimizePrivacy() {
+            const modal = document.getElementById('optimization-modal');
+            const statusText = document.getElementById('modal-status-text');
+            const check1 = document.getElementById('check-1');
+            const check2 = document.getElementById('check-2');
+            const check3 = document.getElementById('check-3');
+            const closeBtn = document.getElementById('modal-close-btn');
+
+            modal.classList.remove('hidden');
+            statusText.innerText = "Executing automated security posture hardening...";
+            check1.innerText = "⏳ Revoking background camera telemetry...";
+            check2.innerText = "⏳ Obfuscating regional location coordinates...";
+            check3.innerText = "⏳ Flushing temporary session tracking tokens...";
+            closeBtn.classList.add('hidden');
+
+            setTimeout(() => {
+                check1.innerHTML = "✅ Camera permission disabled & memory cleared.";
+            }, 800);
+
+            setTimeout(() => {
+                check2.innerHTML = "✅ Location telemetry restricted to regional edge.";
+            }, 1500);
+
+            setTimeout(() => {
+                check3.innerHTML = "✅ Active security flags resolved successfully.";
+                statusText.innerText = "Optimization complete! Your privacy posture is now at maximum level.";
+                closeBtn.classList.remove('hidden');
+
+                appState.camera = false;
+                appState.location = false;
+                appState.hasSecurityAlert = false;
+
+                const chkCam = document.getElementById('chk-camera');
+                const chkLoc = document.getElementById('chk-loc');
+                if(chkCam) chkCam.checked = false;
+                if(chkLoc) chkLoc.checked = false;
+
+                recalculatePrivacyScore();
+            }, 2200);
+        }
+
+        function closeOptimizationModal() {
+            document.getElementById('optimization-modal').classList.add('hidden');
+        }
+
+        function recalculatePrivacyScore() {
+            let score = 70;
+            if (!appState.camera) score += 10;
+            if (!appState.mic) score += 10;
+            if (!appState.location) score += 10;
+            if (!appState.hasSecurityAlert) score += 10;
+
+            const badge = document.getElementById('score-badge');
+            const desc = document.getElementById('posture-desc');
+            const widget = document.getElementById('posture-widget');
+
+            badge.innerText = score + '%';
+
+            if (appState.hasSecurityAlert) {
+                widget.className = "bg-amber-950/40 border border-amber-800/60 rounded-xl p-3.5 text-xs text-amber-400 transition-all duration-300";
+                badge.className = "bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-md font-bold";
+                desc.innerText = "Action Required: 1 Unresolved Security Alert.";
+            } else {
+                widget.className = "bg-slate-900 border border-emerald-900/50 rounded-xl p-3.5 text-xs text-emerald-400 transition-all duration-300";
+                badge.className = "bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-md font-bold";
+                desc.innerText = "Excellent posture! Data exposure is minimal.";
+            }
+        }
+
+        function toggleToolDetail(toolKey) {
+            const rightPane = document.getElementById('tools-right-pane');
+            const title = document.getElementById('tool-pane-title');
+            const userDesc = document.getElementById('tool-user-desc');
+            const complianceDesc = document.getElementById('tool-compliance-desc');
+
+            if (toolKey === 'browser') {
+                title.innerHTML = '<i class="fa-solid fa-globe mr-2 text-emerald-400"></i> Brave / Firefox Enterprise Spec';
+                userDesc.innerText = "Stops intrusive YouTube ads, blocks trackers, and prevents malicious script injections from compromising browsing sessions.";
+                complianceDesc.innerText = "Satisfies corporate web security benchmarks by eliminating cross-site data leak vectors during enterprise research.";
+            } else if (toolKey === 'signal') {
+                title.innerHTML = '<i class="fa-solid fa-comment-secure mr-2 text-sky-400"></i> Signal Secure Messenger Spec';
+                userDesc.innerText = "Guarantees end-to-end encrypted chats and disappearing messages, protecting personal conversations from corporate snooping.";
+                complianceDesc.innerText = "Maintains secure out-of-band communications for remote incident response teams without exposing personal numbers.";
+            }
+
+            rightPane.classList.remove('w-0', 'opacity-0');
+            rightPane.classList.add('w-1/2', 'opacity-100');
+        }
+
+        function closeToolDetail() {
+            const rightPane = document.getElementById('tools-right-pane');
+            rightPane.classList.remove('w-1/2', 'opacity-100');
+            rightPane.classList.add('w-0', 'opacity-0');
+        }
+
+        function togglePermissionPane(permType) {
+            const rightPane = document.getElementById('permission-right-pane');
+            document.getElementById('pane-user-desc').innerText = permType === 'camera' ? "Camera memory stays local." : "Regional accuracy routing only.";
+            document.getElementById('pane-admin-desc').innerText = "Satisfies ISO 27001 zero-trust logging requirements.";
+            rightPane.classList.remove('w-0', 'opacity-0');
+            rightPane.classList.add('w-1/2', 'opacity-100');
+        }
+
+        function closePermissionPane() {
+            const rightPane = document.getElementById('permission-right-pane');
+            rightPane.classList.remove('w-1/2', 'opacity-100');
+            rightPane.classList.add('w-0', 'opacity-0');
+        }
+
+        function toggleSecurityDiagnosticsPane() {
+            const rightPane = document.getElementById('security-right-pane');
+            rightPane.classList.toggle('w-0');
+            rightPane.classList.toggle('w-1/2');
+            rightPane.classList.toggle('opacity-0');
+            rightPane.classList.toggle('opacity-100');
+        }
+
+        function openGamePane() {
+            const rightPane = document.getElementById('game-right-pane');
+            rightPane.classList.remove('w-0', 'opacity-0');
+            rightPane.classList.add('w-1/2', 'opacity-100');
+        }
+
+        function closeGamePane() {
+            const rightPane = document.getElementById('game-right-pane');
+            rightPane.classList.remove('w-1/2', 'opacity-100');
+            rightPane.classList.add('w-0', 'opacity-0');
+        }
+
+        function toggleSidecarInspector() {
+            document.getElementById('sidecar-inspector').classList.toggle('translate-x-full');
+            document.getElementById('sidecar-overlay').classList.toggle('hidden');
+        }
+
+        function sidecarInspectUrl() {
+            const inputVal = document.getElementById('sidecarUrlInput').value.trim();
+            const resultBox = document.getElementById('sidecarResult');
+            resultBox.classList.remove('hidden');
+            
+            const analysis = evaluateUrlRisk(inputVal);
+            if (analysis.riskScore === 2) {
+                resultBox.className = "bg-rose-950/60 p-3 rounded-lg border border-rose-800 text-xs text-rose-400 font-mono";
+                resultBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1"></i> HIGH RISK: ' + analysis.reason;
+            } else if (analysis.riskScore === 1) {
+                resultBox.className = "bg-amber-950/60 p-3 rounded-lg border border-amber-800 text-xs text-amber-400 font-mono";
+                resultBox.innerHTML = '<i class="fa-solid fa-circle-exclamation mr-1"></i> SUSPICIOUS: ' + analysis.reason;
+            } else {
+                resultBox.className = "bg-slate-900 p-3 rounded-lg border border-slate-800 text-xs text-emerald-400 font-mono";
+                resultBox.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> Domain Clean / No Threat Found';
+            }
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-emerald-400', 'bg-slate-900');
+                btn.classList.add('text-slate-400', 'hover:bg-slate-900', 'hover:text-slate-200');
+            });
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active');
+            const btn = document.getElementById('btn-' + tabId);
+            if (btn) {
+                btn.classList.remove('text-slate-400', 'hover:bg-slate-900', 'hover:text-slate-200');
+                btn.classList.add('text-emerald-400', 'bg-slate-900');
+            }
+        }
+
+        function togglePermission(permKey, isEnabled) {
+            appState[permKey] = isEnabled;
+            recalculatePrivacyScore();
+        }
+
+        function triggerDarkPatternTrap() {
+            const card = document.getElementById('game-left-pane');
+            const feedback = document.getElementById('game-feedback');
+            card.classList.add('animate-shake');
+            setTimeout(() => card.classList.remove('animate-shake'), 400);
+            feedback.classList.remove('hidden');
+            feedback.className = "mt-4 text-xs font-semibold text-rose-400 bg-rose-950/40 p-2.5 rounded-lg border border-rose-800/50";
+            feedback.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1"></i> Oops! You fell for a dark pattern trap.';
+            openGamePane();
+        }
+
+        function triggerDarkPatternSuccess() {
+            const feedback = document.getElementById('game-feedback');
+            document.getElementById('streak-count').innerText = "1/1";
+            feedback.classList.remove('hidden');
+            feedback.className = "mt-4 text-xs font-semibold text-emerald-400 bg-emerald-950/40 p-2.5 rounded-lg border border-emerald-800/50";
+            feedback.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> Excellent catch! Daily challenge completed (+10 Points)!';
+            openGamePane();
+        }
+
+        function evaluateUrlRisk(urlStr) {
+            const lowerUrl = urlStr.toLowerCase();
+            const trustedDomains = ['google.com', 'github.com', 'microsoft.com', 'apple.com', 'amazon.com', 'cloudflare.com'];
+            let isTrusted = trustedDomains.some(domain => lowerUrl.includes(domain));
+
+            if (isTrusted && lowerUrl.startsWith('https://')) {
+                return { riskScore: 0, reason: "Trusted domain." };
+            }
+
+            const typoTricks = ['faceb00k', 'g00gle', 'micosoft', 'eicar', 'x5o!p%', 'malware', 'phish'];
+            const sketchyTlds = ['.tk', '.ml', '.ga', '.cf', '.gq', '.xyz', '.ru'];
+            const badKeywords = ['login', 'secure', 'update', 'verify', 'account', 'support', 'bank', 'signin'];
+
+            let hasTyposquat = typoTricks.some(t => lowerUrl.includes(t));
+            let hasSketchyTld = sketchyTlds.some(t => lowerUrl.endsWith(t) || lowerUrl.includes(t + '/'));
+            let hasBadKeyword = badKeywords.some(kw => lowerUrl.includes(kw));
+
+            if (hasTyposquat || hasSketchyTld || (hasBadKeyword && !isTrusted)) {
+                return { riskScore: 2, reason: "Typosquatting or malicious keyword match." };
+            } else if (lowerUrl.startsWith('http://')) {
+                return { riskScore: 1, reason: "Insecure connection protocol (HTTP)." };
+            }
+
+            return { riskScore: 0, reason: "Clean." };
+        }
+
+        function setTestUrl(testUrl) {
+            document.getElementById('urlInput').value = testUrl;
+            inspectUrl();
+        }
+
+        function inspectUrl() {
+            const rawUrl = document.getElementById('urlInput').value.trim();
+            const resultBox = document.getElementById('urlResult');
+            const iconContainer = document.getElementById('result-icon-container');
+            const iconEl = document.getElementById('result-icon');
+            const badge = document.getElementById('riskBadge');
+            const headline = document.getElementById('result-headline');
+            const desc = document.getElementById('riskDesc');
+            const metricProtocol = document.getElementById('metric-protocol');
+            const metricSpoof = document.getElementById('metric-spoof');
+
+            resultBox.classList.remove('hidden');
+
+            const analysis = evaluateUrlRisk(rawUrl);
+            let protocolNote = rawUrl.toLowerCase().startsWith('http://') ? "Insecure (HTTP)" : "HTTPS Secure";
+            let spoofNote = analysis.riskScore === 2 ? "Typosquatting/Homograph Detected" : "Clean / No Homographs";
+
+            if (analysis.riskScore === 2) {
+                resultBox.className = "p-5 rounded-2xl border bg-rose-950/40 border-rose-800/60 space-y-3 transition-all duration-300";
+                iconContainer.className = "w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-lg shrink-0";
+                iconEl.className = "fa-solid fa-triangle-exclamation";
+                badge.className = "text-xs font-bold px-2.5 py-0.5 rounded-md uppercase font-mono bg-rose-900 text-rose-200";
+                badge.innerText = "HIGH RISK / PHISHING";
+                headline.innerText = "Malicious Credential Harvest Detected";
+                desc.innerText = "Warning: This link exhibits strong indicators of brand impersonation, malware test payloads, or typosquatting. Do not enter credentials or execute files here.";
+            } else if (analysis.riskScore === 1) {
+                resultBox.className = "p-5 rounded-2xl border bg-amber-950/40 border-amber-800/60 space-y-3 transition-all duration-300";
+                iconContainer.className = "w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg shrink-0";
+                iconEl.className = "fa-solid fa-circle-exclamation";
+                badge.className = "text-xs font-bold px-2.5 py-0.5 rounded-md uppercase font-mono bg-amber-900 text-amber-200";
+                badge.innerText = "SUSPICIOUS / REVIEW";
+                headline.innerText = "Unverified Domain Structure";
+                desc.innerText = "Caution: This URL contains parameters or unencrypted protocols commonly associated with phishing campaigns. Verify ownership before proceeding.";
+            } else {
+                resultBox.className = "p-5 rounded-2xl border bg-emerald-950/40 border-emerald-800/60 space-y-3 transition-all duration-300";
+                iconContainer.className = "w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg shrink-0";
+                iconEl.className = "fa-solid fa-shield-check";
+                badge.className = "text-xs font-bold px-2.5 py-0.5 rounded-md uppercase font-mono bg-emerald-900 text-emerald-200";
+                badge.innerText = "SAFE / CLEAN DOMAIN";
+                headline.innerText = "No Known Threat Signatures Found";
+                desc.innerText = "This URL structure matches standard legitimate formatting conventions with valid HTTPS encryption and trusted domain ownership.";
+            }
+
+            metricProtocol.innerText = protocolNote;
+            metricSpoof.innerText = spoofNote;
+        }
+    </script>
+</body>
+</html>
